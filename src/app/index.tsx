@@ -96,6 +96,7 @@ function App() {
                 <>
                   <div className="mb-3 flex justify-end gap-x-3">
                     <Button
+                      aria-label="Reset"
                       variant="outline"
                       size="sm"
                       disabled={!journey.length}
@@ -106,6 +107,7 @@ function App() {
                     </Button>
 
                     <Button
+                      aria-label="Clear"
                       variant="destructive"
                       size="sm"
                       disabled={!journey.length}
@@ -149,7 +151,7 @@ function App() {
                   <Tooltip>
                     <TooltipTrigger>
                       <DialogTrigger asChild>
-                        <Button size="icon">
+                        <Button aria-label="New Journey" size="icon">
                           <PlusCircle className="h-4 w-4" />
                         </Button>
                       </DialogTrigger>
@@ -168,6 +170,7 @@ function App() {
                     <div className="flex flex-col gap-y-3 py-3">
                       <div className="flex items-center justify-around">
                         <Button
+                          aria-label="Decrease Range"
                           variant="outline"
                           size="icon"
                           onClick={decrement}
@@ -184,6 +187,7 @@ function App() {
                         />
 
                         <Button
+                          aria-label="Increase Range"
                           variant="outline"
                           size="icon"
                           onClick={increment}
@@ -199,6 +203,7 @@ function App() {
                       <div className="flex flex-wrap gap-x-3">
                         {presets.map((preset, idx) => (
                           <Button
+                            aria-label={`${preset} Journey`}
                             key={idx}
                             variant="outline"
                             onClick={() => setValue(preset)}
@@ -211,6 +216,7 @@ function App() {
 
                     <DialogFooter>
                       <Button
+                        aria-label="Create"
                         disabled={value < 2}
                         onClick={() => createNewJourney(value)}
                       >
