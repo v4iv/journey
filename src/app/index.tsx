@@ -151,7 +151,7 @@ function App() {
                     <AccordionTrigger>{`1 - ${item.trigger}`}</AccordionTrigger>
 
                     <AccordionContent>
-                      <div className="flex flex-wrap gap-x-3">
+                      <div className="flex flex-wrap gap-3">
                         {item.content.map((itemContent, index) => (
                           <Button variant="outline" key={index} disabled>
                             {itemContent}
