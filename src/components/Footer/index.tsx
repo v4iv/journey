@@ -6,7 +6,7 @@ function Footer() {
     <footer className="flex flex-col justify-center p-3 text-center md:px-0 md:py-5">
       <TypographyMuted>Built with ❤️ by</TypographyMuted>
 
-      <Button variant="link" asChild>
+      <Button role="link" variant="link" asChild>
         <a
           href="https://github.com/v4iv"
           target="_blank"
