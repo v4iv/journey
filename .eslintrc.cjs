@@ -5,8 +5,8 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
-    "plugin:prettier/recommended",
-    "plugin:tailwindcss/recommended"
+    'plugin:prettier/recommended',
+    'plugin:tailwindcss/recommended'
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -16,13 +16,14 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    "prettier/prettier": [
-      "warn",
+    'tailwindcss/no-custom-classname': 'off',
+    'prettier/prettier': [
+      'warn',
       {
-        "singleQuote": true,
-        "bracketSpacing": false,
-        "trailingComma": "all",
-        "semi": false
+        'singleQuote': true,
+        'bracketSpacing': false,
+        'trailingComma': 'all',
+        'semi': false
       }
     ],
   },

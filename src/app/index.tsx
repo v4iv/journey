@@ -30,6 +30,8 @@ import {
   TypographyH4,
   TypographyP,
 } from '@/components/ui/typography'
+import {Toaster} from '@/components/ui/toaster'
+import {useToast} from '@/components/ui/use-toast'
 import {ThemeProvider} from '@/components/ui/theme-provider'
 import {range} from '@/lib/utils'
 import NavBar from '@/components/NavBar'
@@ -42,6 +44,7 @@ const presets = [2, 3, 4, 5, 10]
 function App() {
   const [value, setValue] = useState(2)
   const [journey, setJourney] = useState<JourneyType[]>([])
+  const {toast} = useToast()
 
   const increment = () => setValue(value + 1)
   const decrement = () => setValue(value - 1)
@@ -64,6 +67,10 @@ function App() {
     const j = [...journey, newJourney]
 
     setJourney(j)
+
+    toast({
+      title: `'1 - ${v}' journey added!`,
+    })
   }
 
   const resetJourneys = () => {
@@ -78,9 +85,19 @@ function App() {
     })
 
     setJourney(reshuffledJourneys)
+
+    toast({
+      title: `${reshuffledJourneys.length} journeys reshuffled!`,
+    })
   }
 
-  const clearJourneys = () => setJourney([])
+  const clearJourneys = () => {
+    setJourney([])
+
+    toast({
+      title: 'All journeys cleared!',
+    })
+  }
 
   return (
     <ThemeProvider storageKey="vite-ui-theme">
@@ -232,6 +249,8 @@ function App() {
           <Separator />
 
           <Footer />
+
+          <Toaster />
         </div>
       </TooltipProvider>
     </ThemeProvider>
