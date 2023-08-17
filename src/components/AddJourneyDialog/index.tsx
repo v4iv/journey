@@ -9,13 +9,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import {Tooltip, TooltipContent, TooltipTrigger} from '@/components/ui/tooltip'
 import {Button} from '@/components/ui/button'
-import {TypographyMuted, TypographyP} from '@/components/ui/typography'
 import {Input} from '@/components/ui/input'
 import {Separator} from '@/components/ui/separator'
+import {Tooltip, TooltipContent, TooltipTrigger} from '@/components/ui/tooltip'
+import {TypographyMuted, TypographyP} from '@/components/ui/typography'
 
-const presets = [2, 3, 4, 5, 7, 10]
+const presets = [2, 3, 4, 5, 10]
 
 function AddJourneyDialog({
   value,
@@ -88,7 +88,7 @@ function AddJourneyDialog({
 
           <TypographyMuted>{t('presets')}</TypographyMuted>
 
-          <div className="flex flex-wrap gap-x-3">
+          <div className="flex flex-wrap gap-3">
             {presets.map((preset, idx) => (
               <Button
                 aria-label={t('preset-journey', {preset})}
