@@ -20,7 +20,6 @@ import {range} from '@/lib/utils'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
 import AddJourneyDialog from '@/components/AddJourneyDialog'
-import Meditation from '@/components/Meditation'
 
 export interface JourneyType {
   title: number
@@ -126,13 +125,9 @@ function App() {
                 )}
 
                 {!journeys.length && (
-                  <div className="flex flex-col gap-y-10">
-                    <TypographyH1 className="text-center">
-                      {t('begin-journey')}
-                    </TypographyH1>
-
-                    <Meditation />
-                  </div>
+                  <TypographyH1 className="text-center">
+                    {t('begin-journey')}
+                  </TypographyH1>
                 )}
 
                 <Accordion type="single" collapsible>
