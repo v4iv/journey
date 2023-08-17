@@ -9,8 +9,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import {Button} from '@/components/ui/button'
 import {Input} from '@/components/ui/input'
+import {Button} from '@/components/ui/button'
 import {Separator} from '@/components/ui/separator'
 import {Tooltip, TooltipContent, TooltipTrigger} from '@/components/ui/tooltip'
 import {TypographyMuted, TypographyP} from '@/components/ui/typography'
@@ -56,7 +56,7 @@ function AddJourneyDialog({
         </DialogHeader>
 
         <div className="flex flex-col gap-y-3 py-3">
-          <div className="flex items-center justify-around">
+          <div className="flex items-center justify-center gap-x-5">
             <Button
               aria-label={t('decrease-range')}
               variant="secondary"
@@ -70,7 +70,7 @@ function AddJourneyDialog({
             <Input
               type="number"
               value={value}
-              className="h-12 w-12 text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+              className="h-12 w-12 text-center text-xl [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               onChange={handleChange}
             />
 
@@ -86,9 +86,11 @@ function AddJourneyDialog({
 
           <Separator />
 
-          <TypographyMuted>{t('presets')}</TypographyMuted>
+          <TypographyMuted className="text-center">
+            {t('presets')}
+          </TypographyMuted>
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap justify-center gap-3">
             {presets.map((preset, idx) => (
               <Button
                 aria-label={t('preset-journey', {preset})}

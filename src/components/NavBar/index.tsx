@@ -21,7 +21,7 @@ function NavBar() {
   return (
     <nav className="p-3 md:px-0 md:py-5">
       <div className="flex items-center">
-        <Avatar className="mr-3 h-6 w-6">
+        <Avatar className="mx-2 h-6 w-6">
           <AvatarImage src="/icon-192-maskable.png" alt={t('app')} />
           <AvatarFallback>{t('app')}</AvatarFallback>
         </Avatar>
