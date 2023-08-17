@@ -16,10 +16,10 @@ export default defineConfig({
     }),
     VitePWA({
       includeAssets: [
+        'splash.png',
         'favicon.ico',
         'apple-touch-icon.png',
         'icon-192-maskable.png',
-        'icon-512-maskable.png',
       ],
       manifest: {
         name: 'Journey',
