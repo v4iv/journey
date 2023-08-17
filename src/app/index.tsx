@@ -20,6 +20,7 @@ import {range} from '@/lib/utils'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
 import AddJourneyDialog from '@/components/AddJourneyDialog'
+import Meditation from '@/components/Meditation'
 
 export interface JourneyType {
   title: number
@@ -86,87 +87,93 @@ function App() {
   return (
     <ThemeProvider storageKey="vite-ui-theme">
       <TooltipProvider>
-        <div className="mx-auto w-full max-w-screen-md">
-          <NavBar />
+        <div className="bg-hero-pattern bg-center">
+          <div className="mx-auto w-full max-w-screen-md">
+            <NavBar />
 
-          <Separator />
+            <Separator />
 
-          <main className="min-h-screen">
-            <div className="relative p-3 md:px-0 md:py-5">
-              {!!journeys.length && (
-                <>
-                  <div className="mb-3 flex justify-end gap-x-3">
-                    <Button
-                      aria-label={t('reset')}
-                      variant="outline"
-                      size="sm"
-                      disabled={!journeys.length}
-                      onClick={resetJourneys}
-                    >
-                      <RotateCcw className="mr-2 h-4 w-4" />
-                      {t('reset')}
-                    </Button>
+            <main className="min-h-screen">
+              <div className="relative p-3 md:px-0 md:py-5">
+                {!!journeys.length && (
+                  <>
+                    <div className="mb-3 flex justify-end gap-x-3">
+                      <Button
+                        aria-label={t('reset')}
+                        variant="outline"
+                        size="sm"
+                        disabled={!journeys.length}
+                        onClick={resetJourneys}
+                      >
+                        <RotateCcw className="mr-2 h-4 w-4" />
+                        {t('reset')}
+                      </Button>
 
-                    <Button
-                      aria-label={t('clear')}
-                      variant="destructive"
-                      size="sm"
-                      disabled={!journeys.length}
-                      onClick={clearJourneys}
-                    >
-                      <Ban className="mr-2 h-4 w-4" />
-                      {t('clear')}
-                    </Button>
+                      <Button
+                        aria-label={t('clear')}
+                        variant="destructive"
+                        size="sm"
+                        disabled={!journeys.length}
+                        onClick={clearJourneys}
+                      >
+                        <Ban className="mr-2 h-4 w-4" />
+                        {t('clear')}
+                      </Button>
+                    </div>
+
+                    <Separator />
+                  </>
+                )}
+
+                {!journeys.length && (
+                  <div className="flex flex-col gap-y-10">
+                    <TypographyH1 className="text-center">
+                      {t('begin-journey')}
+                    </TypographyH1>
+
+                    <Meditation />
                   </div>
+                )}
 
-                  <Separator />
-                </>
-              )}
+                <Accordion type="single" collapsible>
+                  {journeys.map((journey, idx) => (
+                    <AccordionItem key={idx} value={`item-${idx}`}>
+                      <AccordionTrigger>
+                        {t('journey', {value: journey.title})}
+                      </AccordionTrigger>
 
-              {!journeys.length && (
-                <TypographyH1 className="text-center">
-                  {t('begin-journey')}
-                </TypographyH1>
-              )}
+                      <AccordionContent>
+                        <div className="flex flex-wrap gap-3">
+                          {journey.content.map((journeyContent, index) => (
+                            <Button variant="outline" key={index} disabled>
+                              {journeyContent}
+                            </Button>
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
 
-              <Accordion type="single" collapsible>
-                {journeys.map((journey, idx) => (
-                  <AccordionItem key={idx} value={`item-${idx}`}>
-                    <AccordionTrigger>
-                      {t('journey', {value: journey.title})}
-                    </AccordionTrigger>
-
-                    <AccordionContent>
-                      <div className="flex flex-wrap gap-3">
-                        {journey.content.map((journeyContent, index) => (
-                          <Button variant="outline" key={index} disabled>
-                            {journeyContent}
-                          </Button>
-                        ))}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-
-              <div className="fixed bottom-24 left-[50%] translate-x-[-50%]">
-                <AddJourneyDialog
-                  value={value}
-                  setValue={setValue}
-                  increment={increment}
-                  decrement={decrement}
-                  handleChange={handleChange}
-                  createNewJourney={createNewJourney}
-                />
+                <div className="fixed bottom-24 left-[50%] translate-x-[-50%]">
+                  <AddJourneyDialog
+                    value={value}
+                    setValue={setValue}
+                    increment={increment}
+                    decrement={decrement}
+                    handleChange={handleChange}
+                    createNewJourney={createNewJourney}
+                  />
+                </div>
               </div>
-            </div>
-          </main>
+            </main>
 
-          <Separator />
+            <Separator />
 
-          <Footer />
+            <Footer />
 
-          <Toaster />
+            <Toaster />
+          </div>
         </div>
       </TooltipProvider>
     </ThemeProvider>
