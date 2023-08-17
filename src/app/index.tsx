@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import arrayShuffle from 'array-shuffle'
-import {Ban, Minus, Plus, PlusCircle, RotateCcw} from 'lucide-react'
+import {Ban, RotateCcw} from 'lucide-react'
+import {useTranslation} from 'react-i18next'
 
 import {
   Accordion,
@@ -8,43 +9,28 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
-import {Input} from '@/components/ui/input'
 import {Button} from '@/components/ui/button'
 import {Separator} from '@/components/ui/separator'
-import {
-  TypographyH1,
-  TypographyH4,
-  TypographyP,
-} from '@/components/ui/typography'
-import {Toaster} from '@/components/ui/toaster'
-import {useToast} from '@/components/ui/use-toast'
 import {ThemeProvider} from '@/components/ui/theme-provider'
+import {Toaster} from '@/components/ui/toaster'
+import {TooltipProvider} from '@/components/ui/tooltip'
+import {TypographyH1} from '@/components/ui/typography'
+import {useToast} from '@/components/ui/use-toast'
 import {range} from '@/lib/utils'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
+import AddJourneyDialog from '@/components/AddJourneyDialog'
 
-type JourneyType = {trigger: number; content: number[]}
-
-const presets = [2, 3, 4, 5, 10]
+export interface JourneyType {
+  title: number
+  content: number[]
+}
 
 function App() {
-  const [value, setValue] = useState(2)
-  const [journey, setJourney] = useState<JourneyType[]>([])
   const {toast} = useToast()
+  const [t] = useTranslation(['common'])
+  const [value, setValue] = useState(2)
+  const [journeys, setJourneys] = useState<JourneyType[]>([])
 
   const increment = () => setValue(value + 1)
   const decrement = () => setValue(value - 1)
@@ -60,42 +46,40 @@ function App() {
     const shuffledArray = arrayShuffle(journeyArray)
 
     const newJourney = {
-      trigger: value,
+      title: value,
       content: shuffledArray,
     }
 
-    const j = [...journey, newJourney]
-
-    setJourney(j)
+    setJourneys([...journeys, newJourney])
 
     toast({
-      title: `'1 - ${v}' journey added!`,
+      title: t('journey-added', {value: v}),
     })
   }
 
   const resetJourneys = () => {
-    const reshuffledJourneys = journey.map((j) => {
-      const journeyArray = range(1, j.trigger)
+    const reshuffledJourneys = journeys.map((journey) => {
+      const journeyArray = range(1, journey.title)
       const shuffledArray = arrayShuffle(journeyArray)
 
       return {
-        trigger: j.trigger,
+        title: journey.title,
         content: shuffledArray,
       }
     })
 
-    setJourney(reshuffledJourneys)
+    setJourneys(reshuffledJourneys)
 
     toast({
-      title: `${reshuffledJourneys.length} journeys reshuffled!`,
+      title: t('reshuffled', {count: reshuffledJourneys.length}),
     })
   }
 
   const clearJourneys = () => {
-    setJourney([])
+    setJourneys([])
 
     toast({
-      title: 'All journeys cleared!',
+      title: t('journeys-cleared'),
     })
   }
 
@@ -109,29 +93,29 @@ function App() {
 
           <main className="min-h-screen">
             <div className="relative p-3 md:px-0 md:py-5">
-              {!!journey.length && (
+              {!!journeys.length && (
                 <>
                   <div className="mb-3 flex justify-end gap-x-3">
                     <Button
-                      aria-label="Reset"
+                      aria-label={t('reset')}
                       variant="outline"
                       size="sm"
-                      disabled={!journey.length}
+                      disabled={!journeys.length}
                       onClick={resetJourneys}
                     >
                       <RotateCcw className="mr-2 h-4 w-4" />
-                      Reset
+                      {t('reset')}
                     </Button>
 
                     <Button
-                      aria-label="Clear"
+                      aria-label={t('clear')}
                       variant="destructive"
                       size="sm"
-                      disabled={!journey.length}
+                      disabled={!journeys.length}
                       onClick={clearJourneys}
                     >
                       <Ban className="mr-2 h-4 w-4" />
-                      Clear
+                      {t('clear')}
                     </Button>
                   </div>
 
@@ -139,22 +123,24 @@ function App() {
                 </>
               )}
 
-              {!journey.length && (
+              {!journeys.length && (
                 <TypographyH1 className="text-center">
-                  Press &oplus; to begin your journey...
+                  {t('begin-journey')}
                 </TypographyH1>
               )}
 
               <Accordion type="single" collapsible>
-                {journey.map((item, idx) => (
+                {journeys.map((journey, idx) => (
                   <AccordionItem key={idx} value={`item-${idx}`}>
-                    <AccordionTrigger>{`1 - ${item.trigger}`}</AccordionTrigger>
+                    <AccordionTrigger>
+                      {t('journey', {value: journey.title})}
+                    </AccordionTrigger>
 
                     <AccordionContent>
                       <div className="flex flex-wrap gap-3">
-                        {item.content.map((itemContent, index) => (
+                        {journey.content.map((journeyContent, index) => (
                           <Button variant="outline" key={index} disabled>
-                            {itemContent}
+                            {journeyContent}
                           </Button>
                         ))}
                       </div>
@@ -164,84 +150,14 @@ function App() {
               </Accordion>
 
               <div className="fixed bottom-24 left-[50%] translate-x-[-50%]">
-                <Dialog>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <DialogTrigger asChild>
-                        <Button aria-label="New Journey" size="icon">
-                          <PlusCircle className="h-4 w-4" />
-                        </Button>
-                      </DialogTrigger>
-                    </TooltipTrigger>
-
-                    <TooltipContent>
-                      <TypographyP>New Journey</TypographyP>
-                    </TooltipContent>
-                  </Tooltip>
-
-                  <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                      <DialogTitle>Select Journey Range</DialogTitle>
-                    </DialogHeader>
-
-                    <div className="flex flex-col gap-y-3 py-3">
-                      <div className="flex items-center justify-around">
-                        <Button
-                          aria-label="Decrease Range"
-                          variant="outline"
-                          size="icon"
-                          onClick={decrement}
-                          disabled={value < 2}
-                        >
-                          <Minus className="h-4 w-4" />
-                        </Button>
-
-                        <Input
-                          type="number"
-                          value={value}
-                          className="h-12 w-12 text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-                          onChange={handleChange}
-                        />
-
-                        <Button
-                          aria-label="Increase Range"
-                          variant="outline"
-                          size="icon"
-                          onClick={increment}
-                        >
-                          <Plus className="h-4 w-4" />
-                        </Button>
-                      </div>
-
-                      <Separator />
-
-                      <TypographyH4>Presets</TypographyH4>
-
-                      <div className="flex flex-wrap gap-x-3">
-                        {presets.map((preset, idx) => (
-                          <Button
-                            aria-label={`${preset} Journey`}
-                            key={idx}
-                            variant="outline"
-                            onClick={() => setValue(preset)}
-                          >
-                            {preset}
-                          </Button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <DialogFooter>
-                      <Button
-                        aria-label="Create"
-                        disabled={value < 2}
-                        onClick={() => createNewJourney(value)}
-                      >
-                        Create
-                      </Button>
-                    </DialogFooter>
-                  </DialogContent>
-                </Dialog>
+                <AddJourneyDialog
+                  value={value}
+                  setValue={setValue}
+                  increment={increment}
+                  decrement={decrement}
+                  handleChange={handleChange}
+                  createNewJourney={createNewJourney}
+                />
               </div>
             </div>
           </main>

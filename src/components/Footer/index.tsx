@@ -1,18 +1,22 @@
+import {useTranslation} from 'react-i18next'
+
 import {Button} from '@/components/ui/button'
 import {TypographyMuted} from '@/components/ui/typography'
 
 function Footer() {
+  const [t] = useTranslation(['common'])
+
   return (
     <footer className="flex flex-col justify-center p-3 text-center md:px-0 md:py-5">
-      <TypographyMuted>Built with ❤️ by</TypographyMuted>
+      <TypographyMuted>{t('built-with-love')}</TypographyMuted>
 
       <Button role="link" variant="link" asChild>
         <a
           href="https://github.com/v4iv"
           target="_blank"
-          rel="noreferer noopener"
+          rel="noreferrer noopener"
         >
-          VaibhaV
+          {t('vaibhav')}
         </a>
       </Button>
     </footer>
