@@ -70,7 +70,7 @@ function AddJourneyDialog({
             <Input
               type="number"
               value={value}
-              className="h-12 w-12 text-center text-xl [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+              className="h-14 w-14 text-center text-xl [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               onChange={handleChange}
             />
 
