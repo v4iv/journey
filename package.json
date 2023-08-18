@@ -2,7 +2,7 @@
   "name": "journey",
   "author": "Vaibhav Sharma<vaibhavsharmaatwork@gmail.com>",
   "private": true,
-  "version": "1.6.1",
+  "version": "1.6.2",
   "type": "module",
   "license": "MIT",
   "scripts": {

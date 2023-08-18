@@ -68,6 +68,8 @@ function AddJourneyDialog({
             </Button>
 
             <Input
+              min={2}
+              max={99}
               type="number"
               value={value}
               className="h-14 w-14 text-center text-xl [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
@@ -79,6 +81,7 @@ function AddJourneyDialog({
               variant="secondary"
               size="icon"
               onClick={increment}
+              disabled={value > 99}
             >
               <Plus className="h-4 w-4" />
             </Button>
@@ -107,7 +110,7 @@ function AddJourneyDialog({
         <DialogFooter>
           <Button
             aria-label={t('add')}
-            disabled={value < 2}
+            disabled={value < 2 || value > 99}
             onClick={() => createNewJourney(value)}
           >
             {t('add')}
