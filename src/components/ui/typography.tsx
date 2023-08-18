@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react"
 
-import { cn } from '@/lib/utils'
+import { cn } from "@/lib/utils"
 
 export function TypographyH1({
   children,
@@ -12,7 +12,7 @@ export function TypographyH1({
   return (
     <h1
       className={cn(
-        'scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl',
+        "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
         className,
       )}
     >
@@ -31,7 +31,7 @@ export function TypographyH2({
   return (
     <h2
       className={cn(
-        'scroll-m-20 text-3xl font-bold tracking-tight transition-colors first:mt-0',
+        "scroll-m-20 text-3xl font-bold tracking-tight transition-colors first:mt-0",
         className,
       )}
     >
@@ -49,7 +49,7 @@ export function TypographyH3({
 }) {
   return (
     <h3
-      className={cn('scroll-m-20 text-2xl font-bold tracking-tight', className)}
+      className={cn("scroll-m-20 text-2xl font-bold tracking-tight", className)}
     >
       {children}
     </h3>
@@ -66,7 +66,7 @@ export function TypographyH4({
   return (
     <h4
       className={cn(
-        'scroll-m-20 text-xl font-semibold tracking-tight',
+        "scroll-m-20 text-xl font-semibold tracking-tight",
         className,
       )}
     >
@@ -85,7 +85,7 @@ export function TypographyP({
   return (
     <p
       className={cn(
-        'leading-7 font-light [&:not(:first-child)]:mt-6',
+        "leading-7 font-light [&:not(:first-child)]:mt-6",
         className,
       )}
     >
@@ -112,7 +112,7 @@ export function TypographyList({
   className?: string
 }) {
   return (
-    <ul className={cn('my-6 ml-6 list-disc [&>li]:mt-2', className)}>
+    <ul className={cn("my-6 ml-6 list-disc [&>li]:mt-2", className)}>
       {children}
     </ul>
   )
@@ -128,7 +128,7 @@ export function TypographyInlineCode({
   return (
     <code
       className={cn(
-        'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold',
+        "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
         className,
       )}
     >
@@ -145,7 +145,7 @@ export function TypographyLead({
   className?: string
 }) {
   return (
-    <p className={cn('text-lg md:text-xl text-muted-foreground', className)}>
+    <p className={cn("text-lg md:text-xl text-muted-foreground", className)}>
       {children}
     </p>
   )
@@ -159,7 +159,7 @@ export function TypographyLarge({
   className?: string
 }) {
   return (
-    <div className={cn('text-lg font-semibold', className)}>{children}</div>
+    <div className={cn("text-lg font-semibold", className)}>{children}</div>
   )
 }
 
@@ -171,7 +171,7 @@ export function TypographySmall({
   className?: string
 }) {
   return (
-    <small className={cn('text-sm font-medium leading-none', className)}>
+    <small className={cn("text-sm font-medium leading-none", className)}>
       {children}
     </small>
   )
@@ -185,6 +185,6 @@ export function TypographyMuted({
   className?: string
 }) {
   return (
-    <p className={cn('text-sm text-muted-foreground', className)}>{children}</p>
+    <p className={cn("text-sm text-muted-foreground", className)}>{children}</p>
   )
 }

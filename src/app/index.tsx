@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import arrayShuffle from 'array-shuffle'
 import {Ban, RotateCcw} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
@@ -30,7 +30,21 @@ function App() {
   const {toast} = useToast()
   const [t] = useTranslation(['common'])
   const [value, setValue] = useState(2)
+  const [showButton, setShowButton] = useState(true)
   const [journeys, setJourneys] = useState<JourneyType[]>([])
+
+  useEffect(() => {
+    const handleScrollButtonVisiblity = () => {
+      document.body.scrollTop > 20 || document.documentElement.scrollTop > 20
+        ? setShowButton(false)
+        : setShowButton(true)
+    }
+
+    window.addEventListener('scroll', handleScrollButtonVisiblity)
+    return () => {
+      window.removeEventListener('scroll', handleScrollButtonVisiblity)
+    }
+  }, [])
 
   const increment = () => setValue(value + 1)
   const decrement = () => setValue(value - 1)
@@ -86,7 +100,7 @@ function App() {
   return (
     <ThemeProvider storageKey="vite-ui-theme">
       <TooltipProvider>
-        <div className="bg-hero-pattern bg-center">
+        <div className="bg-hero-pattern bg-bottom">
           <div className="mx-auto w-full max-w-screen-md">
             <NavBar />
 
@@ -154,6 +168,7 @@ function App() {
                   <AddJourneyDialog
                     value={value}
                     setValue={setValue}
+                    showButton={showButton}
                     increment={increment}
                     decrement={decrement}
                     handleChange={handleChange}

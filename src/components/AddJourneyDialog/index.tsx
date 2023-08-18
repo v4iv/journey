@@ -20,6 +20,7 @@ const presets = [2, 3, 4, 5, 10]
 function AddJourneyDialog({
   value,
   setValue,
+  showButton,
   increment,
   decrement,
   handleChange,
@@ -27,6 +28,7 @@ function AddJourneyDialog({
 }: {
   value: number
   setValue: React.Dispatch<React.SetStateAction<number>>
+  showButton: boolean
   increment: () => void
   decrement: () => void
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -37,13 +39,15 @@ function AddJourneyDialog({
   return (
     <Dialog>
       <Tooltip>
-        <TooltipTrigger>
-          <DialogTrigger asChild>
-            <Button aria-label={t('add-journey')} size="icon">
-              <PlusCircle className="h-4 w-4" />
-            </Button>
-          </DialogTrigger>
-        </TooltipTrigger>
+        {showButton && (
+          <TooltipTrigger>
+            <DialogTrigger asChild>
+              <Button aria-label={t('add-journey')} size="icon">
+                <PlusCircle className="h-4 w-4" />
+              </Button>
+            </DialogTrigger>
+          </TooltipTrigger>
+        )}
 
         <TooltipContent>
           <TypographyP>{t('add-journey')}</TypographyP>
